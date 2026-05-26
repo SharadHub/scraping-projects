@@ -58,6 +58,18 @@ class QuotesDownloaderMiddleware:
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
 
+    def __init__(self, *arg, **kwarg):
+        super().__init__(*arg, **kwarg)
+
+        self.proxies = [
+            "38.154.203.95",
+            "198.105.121.200",
+            "64.137.96.74",
+            "209.127.138.10",
+            "38.154.185.97"
+        ]
+        self.counter = 0
+
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
@@ -66,16 +78,14 @@ class QuotesDownloaderMiddleware:
         return s
 
     def process_request(self, request, spider):
-        # Called for each request that goes through the downloader
-        # middleware.
+        request.meta['proxy']=self.proxies[self.counter]
 
-        # Must either:
-        # - return None: continue processing this request
-        # - or return a Response object
-        # - or return a Request object
-        # - or raise IgnoreRequest: process_exception() methods of
-        #   installed downloader middleware will be called
-        return None
+        if self.counter == len(self.proxies) -1:
+            self.counter = 0
+        else:
+            self.counter += 1
+
+        return request
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
