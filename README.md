@@ -15,6 +15,8 @@ A collection of Python web scraping projects built with [Scrapy](https://scrapy.
 | `pdf` | `pdfs` | docs.scrapy.org | Playwright PDF export | `overview.pdf` |
 | `quotes` | `quote` | stealmylogin.com | Playwright form fill & submit | JSON |
 | `screenshot` | `screenshot` | quotes.toscrape.com | Playwright screenshot | `oscar.png` |
+| `api_endpoints` | `points` | dummyjson.com | REST API / JSON parsing | JSON |
+| `travel.py` | — | books.toscrape.com | Standalone `CrawlerProcess` script | Console |
 
 ---
 
@@ -122,6 +124,27 @@ Uses Playwright to visit quotes.toscrape.com and saves a full-page screenshot as
 
 ---
 
+### api_endpoints
+
+```bash
+cd api_endpoints
+scrapy crawl points -o products.json
+```
+
+Fetches product data from the [dummyjson.com](https://dummyjson.com/products) REST API and extracts title, price, category, rating, stock, and brand for each product.
+
+---
+
+### travel.py (standalone script)
+
+```bash
+python travel.py
+```
+
+A self-contained script that uses `CrawlerProcess` to scrape a travel book listing (title and price) from books.toscrape.com — no Scrapy project setup required.
+
+---
+
 ## Project Structure
 
 ```
@@ -143,9 +166,13 @@ scraping-projects/
 ├── quotes/
 │   └── quotes/spiders/
 │       └── quote.py           # Login form automation via Playwright
-└── screenshot/
-    └── screenshot/spiders/
-        └── screenshots.py     # Full-page screenshot via Playwright
+├── screenshot/
+│   └── screenshot/spiders/
+│       └── screenshots.py     # Full-page screenshot via Playwright
+├── api_endpoints/
+│   └── api_endpoints/spiders/
+│       └── api.py             # REST API scraper (dummyjson.com products)
+└── travel.py                  # Standalone CrawlerProcess script
 ```
 
 ---
