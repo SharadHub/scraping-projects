@@ -1,3 +1,4 @@
+import os
 from pymongo import MongoClient
 from itemadapter import ItemAdapter
 
@@ -6,7 +7,7 @@ class MyScraperPipeline:
 
     def open_spider(self, spider):
         self.client = MongoClient(
-            host = "mongodb+srv://bishalbista737_db_user:T18ympGeCDxegb2j@ebook.du6qfei.mongodb.net/?appName=Ebook",
+            host=os.environ["MONGO_URI"],
             connect=False
         )
         self.collection = self.client.get_database("Ebooks").get_collection("Travel")
