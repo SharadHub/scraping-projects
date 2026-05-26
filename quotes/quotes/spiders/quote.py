@@ -3,16 +3,7 @@ from scrapy.selector import Selector
 
 class QuoteSpider(scrapy.Spider):
     name = "quote"
-    
-
-    def start_requests(self):
-        yield scrapy.Request(
-            "https://www.stealmylogin.com/demo",
-            meta={
-                "playwright": True,
-                "playwright_include_page": True
-            }
-        )
+    start_urls = "https://quotes.toscrape.com/"
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
